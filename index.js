@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const todoRoutes = require("./routes/todo.route.js");
 
 require("dotenv").config();
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use((err, req, res, next) => {
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  res.send(`<h1>HELLO WORLD</h1>`);
+  res.send(`<h1>Welcome to To Do List Server</h1>`);
 });
 
 app.use("/api/todo", todoRoutes);
@@ -26,8 +27,8 @@ app.use("/api/todo", todoRoutes);
 mongoose
   .connect(process.env.MONGODB)
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log("Server active at port 3000");
+    app.listen(port, () => {
+      console.log(`Server active at port ${port}`);
     });
   })
   .catch((err) => console.error("Can not connect to Database", err));
